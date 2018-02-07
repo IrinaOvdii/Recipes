@@ -6,17 +6,29 @@ import Vegetarian from '../images/vegetarian.svg'
 import './RecipeItem.css'
 import LikeButton from '../components/LikeButton'
 
+export const recipeShape = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  summary: PropTypes.string.isRequired,
+  vegan: PropTypes.bool,
+  vegetarian: PropTypes.bool,
+  pescatarian: PropTypes.bool,
+  liked: PropTypes.bool
+})
+
 class RecipeItem extends PureComponent {
   static propTypes = {
-    title: PropTypes.string.isRequired,
-    summary: PropTypes.string.isRequired,
-    vegan: PropTypes.bool,
-    vegetarian: PropTypes.bool,
-    pescatarian: PropTypes.bool,
+    ...recipeShape,
+    updateRecipe: PropTypes.func.isRequired
+  }
+
+  toggleLike = () => {
+    const { updateRecipe, _id, liked } = this.props
+    updateRecipe(_id, { liked: !liked })
   }
 
   render() {
-    const { title, summary, vegan, vegetarian, pescatarian } = this.props
+    const { title, summary, vegan, vegetarian, pescatarian, liked } = this.props
 
     return(
       <article className="recipe">
@@ -30,7 +42,7 @@ class RecipeItem extends PureComponent {
           </ul>
         </div>
         <footer>
-         <LikeButton onChange={this.toggleLike} />
+         <LikeButton onChange={this.toggleLike} liked={liked} />
        </footer>
       </article>
     )
