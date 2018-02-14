@@ -19,7 +19,7 @@ class LikeButton extends PureComponent {
     return classes
   }
   toggleLike() {
-    this.props.onChange()
+    // this.props.onChange()
     // this.setState({
     //   liked: !this.state.liked
     // })
@@ -28,7 +28,7 @@ class LikeButton extends PureComponent {
     const { liked } = this.props
     return (
       <div className={ this.classNames() }>
-        <button onClick={ this.toggleLike.bind(this) }>
+        <button >
           <img className="heart" src={ liked ? HeartRed : HeartGrey } />
           <span className="copy">
             <img className="heart" src={ liked ? HeartRed : HeartGrey } />

@@ -5,6 +5,7 @@ import Vegan from '../images/vegan.svg'
 import Vegetarian from '../images/vegetarian.svg'
 import './RecipeItem.css'
 import LikeButton from '../components/LikeButton'
+import { Link } from 'react-router-dom'
 
 export const recipeShape = PropTypes.shape({
   _id: PropTypes.string.isRequired,
@@ -16,19 +17,21 @@ export const recipeShape = PropTypes.shape({
   liked: PropTypes.bool
 })
 
+const PLACEHOLDER = 'http://via.placeholder.com/500x180?text=No%20Image'
+
 class RecipeItem extends PureComponent {
   static propTypes = {
-    ...recipeShape,
-    updateRecipe: PropTypes.func.isRequired
+    ...recipeShape.isRequired,
+    // updateRecipe: PropTypes.func.isRequired
   }
 
   toggleLike = () => {
-    const { updateRecipe, _id, liked } = this.props
-    updateRecipe(_id, { liked: !liked })
+    // const { updateRecipe, _id, liked } = this.props
+    // updateRecipe(_id, { liked: !liked })
   }
 
   render() {
-    const { title, summary, vegan, vegetarian, pescatarian, liked } = this.props
+    const { _id, title, summary, vegan, vegetarian, pescatarian, liked } = this.props
 
     return(
       <article className="recipe">
@@ -43,6 +46,7 @@ class RecipeItem extends PureComponent {
         </div>
         <footer>
          <LikeButton onChange={this.toggleLike} liked={liked} />
+         <Link to={'/recipes/' + _id }>Show recipe</Link>
        </footer>
       </article>
     )
